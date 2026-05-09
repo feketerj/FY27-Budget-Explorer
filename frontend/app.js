@@ -125,6 +125,46 @@ ORDER BY fy2027_total DESC NULLS LAST;`
 FROM r1_research
 WHERE row_kind = 'classified_rollup'
 ORDER BY fy2027_total DESC NULLS LAST;`
+  },
+  {
+    label: 'SATCOM & Ground Stations',
+    icon: '📡',
+    sql: `SELECT 'R-1' AS source, pe_bli AS id, pe_bli_title AS title,
+       account_title AS org, fy2026_total, fy2027_total, changes_notes AS delta
+FROM r1_research
+WHERE row_kind = 'line_item'
+  AND (pe_bli_title LIKE '%SATCOM%' OR pe_bli_title LIKE '%Satellite Comm%'
+       OR pe_bli_title LIKE '%Ground Station%' OR pe_bli_title LIKE '%Ground Terminal%'
+       OR pe_bli_title LIKE '%Space Ground%' OR pe_bli_title LIKE '%Wideband%'
+       OR pe_bli_title LIKE '%MILSATCOM%' OR pe_bli_title LIKE '%Protected Comm%'
+       OR pe_bli_title LIKE '%AEHF%' OR pe_bli_title LIKE '%WGS%'
+       OR pe_bli_title LIKE '%Narrowband%' OR pe_bli_title LIKE '%FAB-T%'
+       OR pe_bli_title LIKE '%Satellite Terminal%' OR pe_bli_title LIKE '%GPS%')
+UNION ALL
+SELECT sheet_name AS source, pe_number AS id, title,
+       budget_activity AS org, fy2026 AS fy2026_total, fy2027_total, NULL AS delta
+FROM service_rdte
+WHERE row_type IN ('PE', 'Project')
+  AND (title LIKE '%SATCOM%' OR title LIKE '%Satellite Comm%'
+       OR title LIKE '%Ground Station%' OR title LIKE '%Ground Terminal%'
+       OR title LIKE '%Space Ground%' OR title LIKE '%Wideband%'
+       OR title LIKE '%MILSATCOM%' OR title LIKE '%Protected Comm%'
+       OR title LIKE '%AEHF%' OR title LIKE '%WGS%'
+       OR title LIKE '%Narrowband%' OR title LIKE '%FAB-T%'
+       OR title LIKE '%Satellite Terminal%' OR title LIKE '%GPS%'
+       OR description LIKE '%SATCOM%' OR description LIKE '%satellite communication%'
+       OR description LIKE '%ground station%' OR description LIKE '%ground terminal%')
+UNION ALL
+SELECT 'P-1' AS source, budget_line_item AS id, bli_title AS title,
+       account_title AS org, fy2026_total_amt AS fy2026_total, fy2027_total_amt AS fy2027_total, NULL AS delta
+FROM p1_procurement
+WHERE add_non_add = 'Add'
+  AND (bli_title LIKE '%SATCOM%' OR bli_title LIKE '%Satellite Comm%'
+       OR bli_title LIKE '%Ground Station%' OR bli_title LIKE '%Ground Terminal%'
+       OR bli_title LIKE '%Wideband%' OR bli_title LIKE '%MILSATCOM%'
+       OR bli_title LIKE '%AEHF%' OR bli_title LIKE '%WGS%'
+       OR bli_title LIKE '%Satellite Terminal%' OR bli_title LIKE '%GPS%')
+ORDER BY fy2027_total DESC NULLS LAST;`
   }
 ];
 
