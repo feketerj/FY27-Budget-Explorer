@@ -81,18 +81,32 @@ body {
   gap: 14px;
 }
 
-.header-logo {
-  width: 36px;
-  height: 36px;
-  background: var(--gradient-1);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 16px;
-  color: #fff;
-  box-shadow: var(--shadow-glow);
+.header-logo-img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: brightness(1.1);
+}
+
+.header-qb {
+  position: relative;
+  margin-right: 20px;
+}
+
+.header-qb-img {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header-qb-img:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 24px rgba(59, 130, 246, 0.4);
 }
 
 .header h1 {
