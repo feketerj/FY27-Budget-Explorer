@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FY27 Budget Explorer</title>
+  <meta name="description" content="Interactive SQL query interface for the FY27 Defense Budget database — R-1, P-1, and Service RDTE data across 11 sheets.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="header-logo">B</div>
+      <div>
+        <h1>FY27 Budget Explorer</h1>
+        <div class="header-subtitle">Defense Budget Database — SQL Query Interface</div>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="header-stat">
+        <div class="header-stat-value" id="stat-rows">—</div>
+        <div class="header-stat-label">Rows</div>
+      </div>
+      <div class="header-stat">
+        <div class="header-stat-value" id="stat-tables">—</div>
+        <div class="header-stat-label">Tables</div>
+      </div>
+      <div class="header-stat">
+        <div class="header-stat-value" id="stat-views">—</div>
+        <div class="header-stat-label">Views</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tables</div>
+      <div id="schema-tables"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Views</div>
+      <div id="schema-views"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Preset Queries</div>
+      <div id="preset-list"></div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <!-- Schema Detail (shown when clicking a table) -->
+    <div id="schema-detail" class="schema-detail"></div>
+
+    <!-- Quick Search -->
+    <div class="quick-search">
+      <div class="quick-search-icon">🔍</div>
+      <input type="text" id="quick-search-input"
+             placeholder="Search by PE number, program name, or keyword (e.g. 0601102A, hypersonics, F-47)…"
+             spellcheck="false" autocomplete="off">
+      <select id="quick-search-scope">
+        <option value="all">All tables</option>
+        <option value="r1">R-1 (Research)</option>
+        <option value="p1">P-1 (Procurement)</option>
+        <option value="rdte">Service RDTE</option>
+      </select>
+    </div>
+
+    <!-- Query Editor -->
+    <div class="editor-wrap">
+      <div class="editor-toolbar">
+        <div class="editor-toolbar-left">
+          <div class="editor-toolbar-dot"></div>
+          <span>SQL Editor</span>
+          <span style="opacity:.5">Ctrl+Enter to run</span>
+        </div>
+        <div class="editor-actions">
+          <div class="spinner" id="spinner"></div>
+          <button class="btn btn-secondary" id="btn-clear">Clear</button>
+          <button class="btn btn-primary" id="btn-run">▶ Run Query</button>
+        </div>
+      </div>
+      <textarea id="sql-input" placeholder="SELECT * FROM r1_research LIMIT 10;" spellcheck="false"></textarea>
+    </div>
+
+    <!-- Results Bar -->
+    <div class="results-bar" id="results-bar"></div>
+
+    <!-- Results Table -->
+    <div class="results-table-wrap" id="results-wrap">
+      <div class="state-message">
+        <div class="state-message-icon">⚡</div>
+        <div class="state-message-text">Write a query or pick a preset</div>
+        <div class="state-message-sub">Use the sidebar to explore tables, views, and preset queries.</div>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

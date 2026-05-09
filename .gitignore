@@ -1,0 +1,21 @@
+# Markdown chunks (reference only — not needed for the tool)
+*_chunk*.md
+FY27 Budget .md
+
+# SQLite WAL files
+*.sqlite-shm
+*.sqlite-wal
+
+# Internal planning docs
+HANDOFF-H1.md
+PLAN-FY27-Budget-DB-and-Pipeline.md
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
