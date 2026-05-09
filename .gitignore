@@ -1,7 +1,3 @@
-# Markdown chunks (reference only — not needed for the tool)
-*_chunk*.md
-FY27 Budget .md
-
 # SQLite WAL files
 *.sqlite-shm
 *.sqlite-wal
